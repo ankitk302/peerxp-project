@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Members List</title>
+{% endblock title %}
+
+{% block content %}
+    <h1 style="text-align: center; padding-top: 1em; padding-bottom: 1em;">Members Information</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">id</th>
+                <th scope="col">Category</th>
+                <th scope="col">Amount</th>
+                <th scope="col">createdby</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for member in member %}
+                <tr>
+                    <th scope="row">{{ member.Name }}</th>
+                    <th scope="row">{{ member.id }}</th>
+                    <td>{{member.Category }}</td>
+                    <td>{{ member.Amount }}</td>
+                    <td>{{ member.Created_by }}</td>
+                    <td>
+                    <a href="{%url 'app1/edit' member.id%}"
+                        class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{% url 'app1/delete' member.id %}" method="POST" class="d-inline"
+                      <input type="submit" class="btn btn-danger" value="delete"> {% csrf_token %}
+                    </form>  
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center">
+         <a href="{% url 'app1/create' %}"><button type="button" class="btn btn-primary">Add New Info</button></a>
+    </div>
+{% endblock content %}
